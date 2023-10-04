@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2022b"><title>Hands On: Introduction to MATLAB - Part 4 - Functions</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(192, 76, 11); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 15px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(192, 76, 11); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S2 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S3 { margin-bottom: 20px; padding-bottom: 4px;  }
+.S4 { margin: 0px; padding: 10px 0px 10px 5px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 700; text-align: start;  }
+.S5 { margin: -1px 0px 0px; padding: 10px 0px 10px 7px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: start;  }
+.S6 { margin: 20px 10px 5px 4px; padding: 0px; line-height: 20px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 20px; font-weight: 700; text-align: left;  }
+.S7 { margin: 10px 0px 20px; padding-left: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 14px;  }
+.S8 { margin-left: 56px; line-height: 21px; min-height: 0px; text-align: left; white-space: pre-wrap;  }
+.S9 { border-left: 0px none rgb(33, 33, 33); border-right: 0px none rgb(33, 33, 33); border-top: 0px none rgb(33, 33, 33); border-bottom: 0px none rgb(33, 33, 33); border-radius: 0px; padding: 0px; line-height: 15.6px; min-height: 16px; white-space: pre; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px;  }
+.S10 { margin: 15px 10px 5px 4px; padding: 0px; line-height: 18px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 17px; font-weight: 700; text-align: left;  }
+.S11 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: center;  }
+.CodeBlock { background-color: #F5F5F5; margin: 10px 0 10px 0; }
+.S12 { border-left: 1px solid rgb(191, 191, 191); border-right: 1px solid rgb(191, 191, 191); border-top: 1px solid rgb(191, 191, 191); border-bottom: 1px solid rgb(191, 191, 191); border-radius: 4px; padding: 6px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S13 { border-left: 1px solid rgb(191, 191, 191); border-right: 1px solid rgb(191, 191, 191); border-top: 1px solid rgb(191, 191, 191); border-bottom: 1px solid rgb(191, 191, 191); border-radius: 4px 4px 0px 0px; padding: 6px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S14 { color: rgb(33, 33, 33); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px; overflow-x: hidden; line-height: 17.234px;  }
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsErrorElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsErrorElement .diagnosticMessage-errorType {    overflow: auto;}
+.embeddedOutputsErrorElement.inlineElement {}
+.embeddedOutputsErrorElement.rightPaneElement {}
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsWarningElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsWarningElement .diagnosticMessage-warningType {    overflow: auto;}
+.embeddedOutputsWarningElement.inlineElement {}
+.embeddedOutputsWarningElement.rightPaneElement {}
+/* Copyright 2015-2019 The MathWorks, Inc. *//* In this file, styles are not scoped to rtcContainer since they could be in the Dojo Tooltip */.diagnosticMessage-wrapper {    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;    font-size: 12px;}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType {    color: rgb(255,100,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType a {    color: rgb(255,100,0);    text-decoration: underline;}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType {    color: rgb(230,0,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType a {    color: rgb(230,0,0);    text-decoration: underline;}
+.diagnosticMessage-wrapper .diagnosticMessage-messagePart,.diagnosticMessage-wrapper .diagnosticMessage-causePart {    white-space: pre-wrap;}
+.diagnosticMessage-wrapper .diagnosticMessage-stackPart {    white-space: pre;}
+.embeddedOutputsTextElement,.embeddedOutputsVariableStringElement {    white-space: pre;    word-wrap:  initial;    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsTextElement .textElement,.embeddedOutputsVariableStringElement .textElement {    overflow: auto;}
+.textElement,.rtcDataTipElement .textElement {    padding-top: 2px;}
+.embeddedOutputsTextElement.inlineElement,.embeddedOutputsVariableStringElement.inlineElement {}
+.inlineElement .textElement {}
+.embeddedOutputsTextElement.rightPaneElement,.embeddedOutputsVariableStringElement.rightPaneElement {    min-height: 16px;}
+.rightPaneElement .textElement {    padding-top: 2px;    padding-left: 9px;}
+.S15 { border-left: 1px solid rgb(191, 191, 191); border-right: 1px solid rgb(191, 191, 191); border-top: 1px solid rgb(191, 191, 191); border-bottom: 0px none rgb(33, 33, 33); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S16 { border-left: 1px solid rgb(191, 191, 191); border-right: 1px solid rgb(191, 191, 191); border-top: 0px none rgb(33, 33, 33); border-bottom: 1px solid rgb(191, 191, 191); border-radius: 0px; padding: 0px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S17 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 20px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 20px; font-weight: 700; text-align: left;  }
+.S18 { margin: 10px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.variableValue { width: 100% !important; }
+.embeddedOutputsMatrixElement,.eoOutputWrapper .matrixElement {    min-height: 18px;    box-sizing: border-box;}
+.embeddedOutputsMatrixElement .matrixElement,.eoOutputWrapper  .matrixElement,.rtcDataTipElement .matrixElement {    position: relative;}
+.matrixElement .variableValue,.rtcDataTipElement .matrixElement .variableValue {    white-space: pre;    display: inline-block;    vertical-align: top;    overflow: hidden;}
+.embeddedOutputsMatrixElement.inlineElement {}
+.embeddedOutputsMatrixElement.inlineElement .topHeaderWrapper {    display: none;}
+.embeddedOutputsMatrixElement.inlineElement .veTable .body {    padding-top: 0 !important;    max-height: 100px;}
+.inlineElement .matrixElement {    max-height: 300px;}
+.embeddedOutputsMatrixElement.rightPaneElement {}
+.rightPaneElement .matrixElement,.rtcDataTipElement .matrixElement {    overflow: hidden;    padding-left: 9px;}
+.rightPaneElement .matrixElement {    margin-bottom: -1px;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer,.eoOutputWrapper .matrixElement .valueContainer,.rtcDataTipElement .matrixElement .valueContainer {    white-space: nowrap;    margin-bottom: 3px;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer .horizontalEllipsis.hide,.embeddedOutputsMatrixElement .matrixElement .verticalEllipsis.hide,.eoOutputWrapper .matrixElement .valueContainer .horizontalEllipsis.hide,.eoOutputWrapper .matrixElement .verticalEllipsis.hide,.rtcDataTipElement .matrixElement .valueContainer .horizontalEllipsis.hide,.rtcDataTipElement .matrixElement .verticalEllipsis.hide {    display: none;}
+.embeddedOutputsVariableMatrixElement .matrixElement .valueContainer.hideEllipses .verticalEllipsis, .embeddedOutputsVariableMatrixElement .matrixElement .valueContainer.hideEllipses .horizontalEllipsis {    display:none;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer .horizontalEllipsis,.eoOutputWrapper .matrixElement .valueContainer .horizontalEllipsis {    margin-bottom: -3px;}
+.eoOutputWrapper .embeddedOutputsVariableMatrixElement .matrixElement .valueContainer {    cursor: default !important;}
+.embeddedOutputsVariableElement {    white-space: pre-wrap;    word-wrap: break-word;    min-height: 18px;    max-height: 250px;    overflow: auto;}
+.variableElement {}
+.embeddedOutputsVariableElement.inlineElement {}
+.inlineElement .variableElement {}
+.embeddedOutputsVariableElement.rightPaneElement {    min-height: 16px;}
+.rightPaneElement .variableElement {    padding-top: 2px;    padding-left: 9px;}
+.outputsOnRight .embeddedOutputsVariableElement.rightPaneElement .eoOutputContent {    /* Remove extra space allocated for navigation border */    margin-top: 0;    margin-bottom: 0;}
+.variableNameElement {    margin-bottom: 3px;    display: inline-block;}
+/* * Ellipses as base64 for HTML export. */.matrixElement .horizontalEllipsis,.rtcDataTipElement .matrixElement .horizontalEllipsis {    display: inline-block;    margin-top: 3px;    /* base64 encoded version of images-liveeditor/HEllipsis.png */    width: 30px;    height: 12px;    background-repeat: no-repeat;    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAJCAYAAADO1CeCAAAAJUlEQVR42mP4//8/A70xw0i29BUDFPxnAEtTW37wWDqakIa4pQDvOOG89lHX2gAAAABJRU5ErkJggg==");}
+.matrixElement .verticalEllipsis,.textElement .verticalEllipsis,.rtcDataTipElement .matrixElement .verticalEllipsis,.rtcDataTipElement .textElement .verticalEllipsis {    margin-left: 35px;    /* base64 encoded version of images-liveeditor/VEllipsis.png */    width: 12px;    height: 30px;    background-repeat: no-repeat;    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAZCAYAAAAIcL+IAAAALklEQVR42mP4//8/AzGYgWyFMECMwv8QddRS+P//KyimlmcGUOFoOI6GI/UVAgDnd8Dd4+NCwgAAAABJRU5ErkJggg==");}
+.S19 { border-left: 1px solid rgb(191, 191, 191); border-right: 1px solid rgb(191, 191, 191); border-top: 1px solid rgb(191, 191, 191); border-bottom: 0px none rgb(33, 33, 33); border-radius: 0px; padding: 6px 45px 0px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S20 { border-left: 1px solid rgb(191, 191, 191); border-right: 1px solid rgb(191, 191, 191); border-top: 1px solid rgb(191, 191, 191); border-bottom: 1px solid rgb(191, 191, 191); border-radius: 0px; padding: 6px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S21 { margin: 10px 10px 5px 4px; padding: 0px; line-height: 18px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 15px; font-weight: 700; text-align: left;  }</style></head><body><div class = rtcContent><h1  class = 'S0' id = 'T_33DE9782' ><span>Hands On: Introduction to MATLAB - Part 4 - Functions</span></h1><h1  class = 'S1' id = 'T_362EE8B4' ><span></span></h1><div  class = 'S2'><span>This is the fourth MATLAB live script of the collection </span><span style=' font-weight: bold; font-style: italic;'>Hands On: Using MATLAB in the 267MI "System Dynamics" course</span><span>, devoted to introduce the MATLAB/Simulink environment and tools for solving practical problems related to the topics of the 267MI course, i.e. performance analysis of dynamic systems, parametric estimation, identification of models from data, and prediction of the evolution of dynamic systems.</span></div><div  class = 'S2'><span>Use </span><a href = "./usingMATLAB_267MISystemDynamics.html"><span>this link</span></a><span> to go back to the main live script of the collection.</span></div><div  class = 'S2'><span></span></div><div  class = 'S3'><div  class = 'S4'><span style=' font-weight: bold;'>Table of Contents</span></div><div  class = 'S5'><a href = "#H_905E1908"><span>Objectives
+</span></a><a href = "#H_D80C2E5E"><span>An Introduction
+</span></a><a href = "#H_78FBEEDB"><span>The General Sintax
+</span></a><span>    </span><a href = "#H_B463FF77"><span>An Example
+</span></a><a href = "#H_A0F8ED3E"><span>Some Built-in Functions
+</span></a><a href = "#H_4644F8A6"><span>Functions Applied to a Vector
+</span></a><span>    </span><a href = "#H_C1482D7A"><span>Examples
+</span></a><a href = "#H_BE2690D8"><span>Summary
+</span></a><span>        </span><a href = "#H_B713125A"><span>Back to the Index
+</span></a><span>        </span><a href = "#H_C8A86778"><span>Back to the Previous Part: Vectors &amp; Matrices 
+</span></a><span>        </span><a href = "#H_A2D5477B"><span>Go to the Next Part: LTI Systems</span></a></div></div><h2  class = 'S6' id = 'H_905E1908' ><span>Objectives</span></h2><div  class = 'S2'><span> The aim of this live script is to illustrare how to use functions and to define custom function and anonymous functions in MATLAB. </span></div><div  class = 'S2'><span>What you should know by the end of this module:</span><span>    </span><span>    </span></div><ul  class = 'S7'><li  class = 'S8'><span>how to call functions provided as part of MATLAB;</span></li><li  class = 'S8'><span>use of input and output arguments;</span></li><li  class = 'S8'><span>how to create a custom MATLAB function.</span></li></ul><h2  class = 'S6' id = 'H_D80C2E5E' ><span>An Introduction</span></h2><div  class = 'S2'><span></span></div><div  class = 'S2'><span>Functions are an essential mechanism for grouping a sequence of frequently used MATLAB commands to perform a specific task. Examples include all the standard mathematical functions such as </span><span style=' font-family: monospace;'>sin</span><span>, </span><span style=' font-family: monospace;'>cos</span><span>, </span><span style=' font-family: monospace;'>tan</span><span>, </span><span style=' font-family: monospace;'>exp</span><span>, </span><span style=' font-family: monospace;'>log</span><span>, </span><span style=' font-family: monospace;'>sqrt</span><span>, </span><span style=' font-family: monospace;'>abs</span><span> and many others. MATLAB also offers the possibility of </span><span style=' font-weight: bold;'>defining custom functions</span><span>. In this live script, we will only look at the simplest way of doing this, using anonymous functions. This is essential for problems such as solving non-linear equations, integrating a function and minimising or maximising a function. One of the great powers of MATLAB is the ability to apply functions to vectors and matrices with any number of elements in a single call.</span></div><div  class = 'S2'><span></span></div><h2  class = 'S6' id = 'H_78FBEEDB' ><span>The General Sintax</span></h2><div  class = 'S2'><span>MATLAB provides the ability to define your own functions: </span></div><ul  class = 'S7'><li  class = 'S8'><span>An M-file is a </span><span style=' font-weight: bold;'>MATLAB function</span><span> if and only if the first line of the file contains the following text</span></li></ul><div class = 'preformatted-matlab' style = 'margin: 10px 3px 10px 55px; padding: 10px 10px 10px 5px; '><div  class = 'S9'><span style="white-space: pre"><span style="color: rgb(0, 0, 255);">function </span><span >[output variable list] = function_name (input variable list)</span></span></div></div><ul  class = 'S7'><li  class = 'S8'><span>Terminating the file with a keyword is unnecessary: usually, a function ends when the last instruction line of the M-file describing it (which may be an "</span><span style=' font-family: monospace;'>end</span><span>" MATLAB keyword) is reached. </span></li><li  class = 'S8'><span>You can force termination at any point using the '</span><span style=' font-family: monospace;'>return</span><span>' instruction (see </span><span style=' font-family: monospace;'>help return</span><span> for details).</span></li></ul><h3  class = 'S10' id = 'H_B463FF77' ><span>An Example</span></h3><div  class = 'S2'><span>Calculating the area of any triangle according to the formula</span></div><div  class = 'S11'><span texencoding="\mathcal{A} = \displaystyle \sqrt{s\cdot \left(s-a\right)\cdot \left(s-b\right)\cdot \left(s-c\right)}\;,\quad s= \frac{a+b+c}{2}" style="vertical-align:-15px"><img src="data:image/png;base64,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" width="311" height="36" /></span></div><div  class = 'S2'><span>where </span><span texencoding="a\,,\;b\,,\;c" style="vertical-align:-5px"><img src="data:image/png;base64,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" width="48" height="18" /></span><span> are the lengths of the triangle sides.</span></div><div  class = 'S2'><span></span></div><div  class = 'S2'><span>The function then (in its simplest version) has 3 input parameters and only 1 output parameter:</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S12'><span style="white-space: pre"><span >edit </span><span style="color: rgb(160, 32, 240);">evalTriangleArea</span></span></div></div></div><div  class = 'S2'><span>Please note the initial comment lines in the M-file text. They are usefull to implement the </span><span style=' text-decoration: underline;'>help contents</span><span> for the custom MATLAB function.</span></div><div  class = 'S2'><span>To see how the help command uses such helping lines, just run the following</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S13'><span style="white-space: pre"><span >help </span><span style="color: rgb(160, 32, 240);">evalTriangleArea</span></span></div><div  class = 'S14'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement" uid="D6993692" prevent-scroll="true" data-testid="output_0" style="width: 1040px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" data-width="1010" data-height="149" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">  The function <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">evalTriangleArea</strong>(a, b, c) 
+  computes the area of a triangle whose
+  sides have length a, b and c.
+  Inputs:
+      a,b,c: Lengths of sides
+  Output:
+      A: area of triangle
+  Usage:
+      Area = evalArea(2,3,4);
+  Written by XXX, MM/DD/YY.</div></div></div></div></div><div  class = 'S2'><span>Using the custom function</span></div><ul  class = 'S7'><li  class = 'S8'><span>assigning an output variable</span></li></ul><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S15'><span style="white-space: pre"><span >format </span><span style="color: rgb(160, 32, 240);">short</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S16'><span style="white-space: pre"><span >Area = evalTriangleArea(10,15,20)</span></span></div><div  class = 'S14'><div class='variableElement' style='font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px; '>Area = 72.6184</div></div></div></div><ul  class = 'S7'><li  class = 'S8'><span>without assigning the output variable</span></li></ul><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S13'><span style="white-space: pre"><span >evalTriangleArea(10,15,20)</span></span></div><div  class = 'S14'><div class='variableElement' style='font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px; '>ans = 72.6184</div></div></div></div><h2  class = 'S17' id = 'H_A0F8ED3E' ><span>Some Built-in Functions</span></h2><div  class = 'S2'><span></span></div><div  class = 'S2'><span>    You may find the list of built-in elementary mathematical function by typing </span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S13'><span style="white-space: pre"><span >help </span><span style="color: rgb(160, 32, 240);">elfun</span></span></div><div  class = 'S14'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement scrollableOutput" uid="7425AAF1" prevent-scroll="true" data-testid="output_3" style="width: 1040px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" data-width="1010" data-height="1169" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">  Elementary math functions.
+ 
+  Trigonometric.
+    sin         - Sine.
+    sind        - Sine of argument in degrees.
+    sinh        - Hyperbolic sine.
+    asin        - Inverse sine.
+    asind       - Inverse sine, result in degrees.
+    asinh       - Inverse hyperbolic sine.
+    cos         - Cosine.
+    cosd        - Cosine of argument in degrees.
+    cosh        - Hyperbolic cosine.
+    acos        - Inverse cosine.
+    acosd       - Inverse cosine, result in degrees.
+    acosh       - Inverse hyperbolic cosine.
+    tan         - Tangent.
+    tand        - Tangent of argument in degrees.
+    tanh        - Hyperbolic tangent.
+    atan        - Inverse tangent.
+    atand       - Inverse tangent, result in degrees.
+    atan2       - Four quadrant inverse tangent.
+    atan2d      - Four quadrant inverse tangent, result in degrees.
+    atanh       - Inverse hyperbolic tangent.
+    sec         - Secant.
+    secd        - Secant of argument in degrees.
+    sech        - Hyperbolic secant.
+    asec        - Inverse secant.
+    asecd       - Inverse secant, result in degrees.
+    asech       - Inverse hyperbolic secant.
+    csc         - Cosecant.
+    cscd        - Cosecant of argument in degrees.
+    csch        - Hyperbolic cosecant.
+    acsc        - Inverse cosecant.
+    acscd       - Inverse cosecant, result in degrees.
+    acsch       - Inverse hyperbolic cosecant.
+    cot         - Cotangent.
+    cotd        - Cotangent of argument in degrees.
+    coth        - Hyperbolic cotangent.
+    acot        - Inverse cotangent.
+    acotd       - Inverse cotangent, result in degrees.
+    acoth       - Inverse hyperbolic cotangent.
+    hypot       - Square root of sum of squares.
+    deg2rad     - Convert angles from degrees to radians.
+    rad2deg     - Convert angles from radians to degrees.
+ 
+  Exponential.
+    exp         - Exponential.
+    expm1       - Compute exp(x)-1 accurately.
+    log         - Natural logarithm.
+    log1p       - Compute log(1+x) accurately.
+    log10       - Common (base 10) logarithm.
+    log2        - Base 2 logarithm and dissect floating point number.
+    pow2        - Base 2 power and scale floating point number.
+    realpow     - Power that will error out on complex result.
+    reallog     - Natural logarithm of real number.
+    realsqrt    - Square root of number greater than or equal to zero.
+    sqrt        - Square root.
+    nthroot     - Real n-th root of real numbers.
+    nextpow2    - Next higher power of 2.
+ 
+  Complex.
+    abs         - Absolute value.
+    angle       - Phase angle.
+    complex     - Construct complex data from real and imaginary parts.
+    conj        - Complex conjugate.
+    imag        - Complex imaginary part.
+    real        - Complex real part.
+    unwrap      - Unwrap phase angle.
+    isreal      - True for real array.
+    cplxpair    - Sort numbers into complex conjugate pairs.
+ 
+  Rounding and remainder.
+    fix         - Round towards zero.
+    floor       - Round towards minus infinity.
+    ceil        - Round towards plus infinity.
+    round       - Round towards nearest integer.
+    mod         - Modulus (signed remainder after division).
+    rem         - Remainder after division.
+    sign        - Signum.</div></div></div></div></div><div  class = 'S18'><span>or using the MATLAB help browser (search for </span><span style=' font-weight: bold;'>Elementary Math</span><span>)</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S12'><span style="white-space: pre"><span >doc </span><span style="color: rgb(160, 32, 240);">Elementary Math</span></span></div></div></div><div  class = 'S18'><span>  </span></div><h2  class = 'S17' id = 'H_4644F8A6' ><span>Functions Applied to a Vector</span></h2><div  class = 'S2'><span></span></div><div  class = 'S2'><span>Most MATLAB functions have been modified (overloaded) so they work with </span><span style=' font-weight: bold;'>inputs</span><span> which are </span><span style=' font-weight: bold;'>vectors</span><span> as well as scalars. When an argument is a vector the function is applied to each element of the vector, producing a vector of the same size as the input vector.</span></div><h3  class = 'S10' id = 'H_C1482D7A' ><span>Examples</span></h3><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S13'><span style="white-space: pre"><span >sqrt(1:10)</span></span></div><div  class = 'S14'><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="3FBA8E7D" prevent-scroll="true" data-testid="output_4" data-width="1010" style="width: 1040px; white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="matrixElement veSpecifier eoOutputContent" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 1010px; white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">1×10</span></div></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:73,&quot;totalColumns&quot;:10,&quot;totalRows&quot;:1,&quot;charsPerColumn&quot;:10}" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="variableValue" style="width: 732px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">    1.0000    1.4142    1.7321    2.0000    2.2361    2.4495    2.6458    2.8284    3.0000    3.1623
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="verticalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div></div></div><div class="outputLayer selectedOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="outputLayer activeOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="outputLayer scrollableOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div></div></div></div><div class="inlineWrapper"><div  class = 'S19'>&nbsp;</div></div><div class="inlineWrapper outputs"><div  class = 'S16'><span style="white-space: pre"><span >xv = -1:1/2:1 </span><span style="color: rgb(34, 139, 34);">% a row vecor with 5 elements</span></span></div><div  class = 'S14'><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="7F676452" prevent-scroll="true" data-testid="output_5" data-width="1010" style="width: 1040px; white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="matrixElement veSpecifier eoOutputContent" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 1010px; white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">xv = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">1×5</span></div></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:73,&quot;totalColumns&quot;:5,&quot;totalRows&quot;:1,&quot;charsPerColumn&quot;:10}" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="variableValue" style="width: 367px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">   -1.0000   -0.5000         0    0.5000    1.0000
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="verticalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div></div></div><div class="outputLayer selectedOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="outputLayer activeOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="outputLayer scrollableOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div></div></div></div><div class="inlineWrapper outputs"><div  class = 'S20'><span style="white-space: pre"><span >sin( (pi/2)*xv )</span></span></div><div  class = 'S14'><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="1C339904" prevent-scroll="true" data-testid="output_6" data-width="1010" style="width: 1040px; white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="matrixElement veSpecifier eoOutputContent" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 1010px; white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">1×5</span></div></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:73,&quot;totalColumns&quot;:5,&quot;totalRows&quot;:1,&quot;charsPerColumn&quot;:10}" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="variableValue" style="width: 367px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">   -1.0000   -0.7071         0    0.7071    1.0000
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="verticalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div></div></div><div class="outputLayer selectedOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="outputLayer activeOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div><div class="outputLayer scrollableOutputDecorationLayer doNotExport" style="white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"></div></div></div></div></div><div  class = 'S18'><span>Sometimes the result of the function has fewer elements than the input:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S13'><span style="white-space: pre"><span >sum(xv)</span></span></div><div  class = 'S14'><div class='variableElement' style='font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px; '>ans = 0</div></div></div><div class="inlineWrapper"><div  class = 'S19'>&nbsp;</div></div><div class="inlineWrapper outputs"><div  class = 'S16'><span style="white-space: pre"><span >max(xv)</span></span></div><div  class = 'S14'><div class='variableElement' style='font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px; '>ans = 1</div></div></div></div><h2  class = 'S17' id = 'H_BE2690D8' ><span>Summary</span></h2><div  class = 'S2'><span>    </span></div><div  class = 'S2'><span>Using this live script you have: </span></div><ul  class = 'S7'><li  class = 'S8'><span>learnt about MATLAB's wide range of elementary mathematical functions;</span></li><li  class = 'S8'><span>learnt how to write an own custom MATLAB function;</span></li><li  class = 'S8'><span>learnt that many of MATLAB's functions accept a vector as input, creating a vector as output, where the function has been evaluated at each element of the input vector.</span></li></ul><div  class = 'S2'><span>    </span></div><h4  class = 'S21' id = 'H_B713125A' ><span>Back to the Index</span></h4><div  class = 'S2'><span>Use </span><a href = "./usingMATLAB_267MISystemDynamics.html"><span>this link</span></a><span> to go back to the main live script of the collection.</span></div><div  class = 'S2'><span></span></div><h4  class = 'S21' id = 'H_C8A86778' ><span>Back to the Previous Part: Vectors &amp; Matrices </span></h4><div  class = 'S2'><span>Use </span><a href = "./Intro_MATLAB4SD_p3.html"><span>this link</span></a><span> to go back to the previous live script of this collection.</span></div><div  class = 'S2'><span></span></div><h4  class = 'S21' id = 'H_A2D5477B' ><span>Go to the Next Part: LTI Systems</span></h4><div  class = 'S2'><span>Use </span><a href = "./Intro_MATLAB4SD_p5.html"><span>this link</span></a><span> to go to the next live script of the collection.</span></div><div  class = 'S2'><span>    </span></div><div  class = 'S2'><span></span></div><div  class = 'S2'><span></span></div><div  class = 'S2'></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% Hands On: Introduction to MATLAB - Part 4 - Functions
+%% 
+% This is the fourth MATLAB live script of the collection _*Hands On: Using 
+% MATLAB in the 267MI "System Dynamics" course*_, devoted to introduce the MATLAB/Simulink 
+% environment and tools for solving practical problems related to the topics of 
+% the 267MI course, i.e. performance analysis of dynamic systems, parametric estimation, 
+% identification of models from data, and prediction of the evolution of dynamic 
+% systems.
+% 
+% Use <./usingMATLAB_267MISystemDynamics.mlx this link> to go back to the main 
+% live script of the collection.
+% 
+% 
+%% Objectives
+% The aim of this live script is to illustrare how to use functions and to define 
+% custom function and anonymous functions in MATLAB. 
+% 
+% What you should know by the end of this module:        
+%% 
+% * how to call functions provided as part of MATLAB;
+% * use of input and output arguments;
+% * how to create a custom MATLAB function.
+%% An Introduction
+% 
+% 
+% Functions are an essential mechanism for grouping a sequence of frequently 
+% used MATLAB commands to perform a specific task. Examples include all the standard 
+% mathematical functions such as |sin|, |cos|, |tan|, |exp|, |log|, |sqrt|, |abs| 
+% and many others. MATLAB also offers the possibility of *defining custom functions*. 
+% In this live script, we will only look at the simplest way of doing this, using 
+% anonymous functions. This is essential for problems such as solving non-linear 
+% equations, integrating a function and minimising or maximising a function. One 
+% of the great powers of MATLAB is the ability to apply functions to vectors and 
+% matrices with any number of elements in a single call.
+% 
+% 
+%% The General Sintax
+% MATLAB provides the ability to define your own functions: 
+%% 
+% * An M-file is a *MATLAB function* if and only if the first line of the file 
+% contains the following text
+%%
+% 
+%   function [output variable list] = function_name (input variable list)
+%
+%% 
+% * Terminating the file with a keyword is unnecessary: usually, a function 
+% ends when the last instruction line of the M-file describing it (which may be 
+% an "|end|" MATLAB keyword) is reached. 
+% * You can force termination at any point using the '|return|' instruction 
+% (see |help return| for details).
+% An Example
+% Calculating the area of any triangle according to the formula
+% 
+% $$\mathcal{A} = \displaystyle \sqrt{s\cdot \left(s-a\right)\cdot \left(s-b\right)\cdot 
+% \left(s-c\right)}\;,\quad s= \frac{a+b+c}{2}$$
+% 
+% where $a\,,\;b\,,\;c$ are the lengths of the triangle sides.
+% 
+% 
+% 
+% The function then (in its simplest version) has 3 input parameters and only 
+% 1 output parameter:
+
+edit evalTriangleArea
+%% 
+% Please note the initial comment lines in the M-file text. They are usefull 
+% to implement the help contents for the custom MATLAB function.
+% 
+% To see how the help command uses such helping lines, just run the following
+
+help evalTriangleArea
+%% 
+% Using the custom function
+%% 
+% * assigning an output variable
+
+format short
+Area = evalTriangleArea(10,15,20)
+%% 
+% * without assigning the output variable
+
+evalTriangleArea(10,15,20)
+%% Some Built-in Functions
+% 
+% 
+% You may find the list of built-in elementary mathematical function by typing 
+
+help elfun
+%% 
+% or using the MATLAB help browser (search for *Elementary Math*)
+
+doc Elementary Math
+%% 
+% 
+%% Functions Applied to a Vector
+% 
+% 
+% Most MATLAB functions have been modified (overloaded) so they work with *inputs* 
+% which are *vectors* as well as scalars. When an argument is a vector the function 
+% is applied to each element of the vector, producing a vector of the same size 
+% as the input vector.
+% Examples
+
+sqrt(1:10)
+
+xv = -1:1/2:1 % a row vecor with 5 elements
+sin( (pi/2)*xv )
+%% 
+% Sometimes the result of the function has fewer elements than the input:
+
+sum(xv)
+
+max(xv)
+%% Summary
+% 
+% 
+% Using this live script you have: 
+%% 
+% * learnt about MATLAB's wide range of elementary mathematical functions;
+% * learnt how to write an own custom MATLAB function;
+% * learnt that many of MATLAB's functions accept a vector as input, creating 
+% a vector as output, where the function has been evaluated at each element of 
+% the input vector.
+%% 
+% 
+% Back to the Index
+% Use <./usingMATLAB_267MISystemDynamics.mlx this link> to go back to the main 
+% live script of the collection.
+% 
+% 
+% Back to the Previous Part: Vectors & Matrices 
+% Use <./Intro_MATLAB4SD_p3.mlx this link> to go back to the previous live script 
+% of this collection.
+% 
+% 
+% Go to the Next Part: LTI Systems
+% Use <./Intro_MATLAB4SD_p5.mlx this link> to go to the next live script of 
+% the collection.
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+%
+##### SOURCE END #####
+-->
+</div></body></html>
