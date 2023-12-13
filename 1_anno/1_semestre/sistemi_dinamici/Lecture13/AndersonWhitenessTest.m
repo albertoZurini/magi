@@ -26,7 +26,8 @@ if verboseFLAG
 end
 % the maximum value for lag, when evaluating 
 % the sampled autocorrelation function (see SD L13 p30)
-normAutocorrCoeffs = xcorr(prediction_residuals, ...
+
+ normAutocorrCoeffs = xcorr(prediction_residuals, ...
                             M, ...
                             'coeff');
 % the normalized sampled autocorrelation function
@@ -34,6 +35,7 @@ normAutocorrCoeffs = xcorr(prediction_residuals, ...
 % scaling the function values
 scaled_hat_rho_coeffs = normAutocorrCoeffs * sqrt(N); 
 % see SD L13 p30
+% Per N-> inf la variabile precedente converge ad un G(0,1)
 
 % using the confidence level alpha, find the value beta such that
 %               Prob{abs(x) > beta} = alpha
