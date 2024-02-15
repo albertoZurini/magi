@@ -1,0 +1,5 @@
+opencv-python
+matplotlib
+numpy
+debugpy
+gym[box2d]
