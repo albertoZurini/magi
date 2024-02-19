@@ -1,38 +1,36 @@
 import gym
-import cv2
 from collections import deque
-import numpy as np
 from tqdm import tqdm
+from common import process_state_image, generate_state_frame_stack_from_queue
+import os
+import numpy as np
+import matplotlib.pyplot as plt
 
 import model
 
 RENDER                        = False
 STARTING_EPISODE              = 1
 ENDING_EPISODE                = 1000
-SKIP_FRAMES                   = 2
+SKIP_FRAMES                   = 3
 TRAINING_BATCH_SIZE           = 64
 SAVE_TRAINING_FREQUENCY       = 25
 UPDATE_TARGET_MODEL_FREQUENCY = 5
 
-env = gym.make('CarRacing-v2', render_mode="rgb_array")
+if not os.path.exists("save"):
+    os.mkdir("save")
 
-def process_state_image(state):
-    state = state[0:84, :]
-    state = cv2.cvtColor(state, cv2.COLOR_BGR2GRAY)
-    state = state.astype(np.float32)
-    state /= 255.0
-    return state
+render_mode = "human" if RENDER else "rgb_array"
+env = gym.make('CarRacing-v2', render_mode=render_mode)
 
-def generate_state_frame_stack_from_queue(deque):
-    frame_stack = np.array(deque)
-    # Move stack dimension to the channel dimension (stack, x, y) -> (x, y, stack)
-    sp = frame_stack.shape
-    return frame_stack.reshape(3, 84, 96) # np.transpose(frame_stack, (1, 2, 0))
-
-agent = model.DQNCarRacngAgent()
+agent = model.DQNCarRacngAgent(epsilon=0.5)
 agent.set_training()
+agent.load_weights("weights.h5")
 
-# TODO: if model exists load it
+if STARTING_EPISODE > 1:
+    model_path = f"save/trial_{STARTING_EPISODE-1}.h5"
+    agent.load_weights(model_path)
+
+rewards = []
 
 for e in tqdm(range(STARTING_EPISODE, ENDING_EPISODE+1)):
     init_state, _ = env.reset()
@@ -56,15 +54,12 @@ for e in tqdm(range(STARTING_EPISODE, ENDING_EPISODE+1)):
         for _ in range(SKIP_FRAMES+1):
             next_state, r, done, _, info = env.step(action)
             reward += r
+
+            # If continually getting negative reward 10 times after the tolerance steps, terminate this episode
+            negative_reward_counter = negative_reward_counter + 1 if time_frame_counter > 100 and r < 0 else 0
+
             if done:
                 break
-
-        # If continually getting negative reward 10 times after the tolerance steps, terminate this episode
-        negative_reward_counter = negative_reward_counter + 1 if time_frame_counter > 100 and reward < 0 else 0
-
-        # Extra bonus for the model if it uses full gas
-        #if action[1] == 1 and action[2] == 0:
-        #    reward *= 1.5
 
         total_reward += reward
 
@@ -80,11 +75,16 @@ for e in tqdm(range(STARTING_EPISODE, ENDING_EPISODE+1)):
         if len(agent.memory) > TRAINING_BATCH_SIZE:
             agent.replay(TRAINING_BATCH_SIZE)
         time_frame_counter += 1
+    
+    rewards.append(total_reward)
 
     if e % UPDATE_TARGET_MODEL_FREQUENCY == 0:
         agent.update_target_model()
 
     if e % SAVE_TRAINING_FREQUENCY == 0:
-        agent.save('./save/trial_{}.h5'.format(e))
+        agent.save_weights('./save/trial_{}.h5'.format(e))
+        with open('test.npy', 'wb') as f:
+            np.save(f, np.array(rewards))
+
 
 env.close()
