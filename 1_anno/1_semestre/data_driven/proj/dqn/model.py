@@ -14,7 +14,7 @@ import torch
 
 class DNN(Module):
     def __init__(self, frame_stack_num, action_space) -> None:
-        super(DNN, self).__init__()
+        super().__init__()
         # CNN output dim: (I - F +2 *P) / S] +1
 
         # NN architecture is the same as LeNet
@@ -36,7 +36,7 @@ class DNN(Module):
         self.fc2 = Linear(in_features=256,
                           out_features=len(action_space)
                           )
-        self.output_activation = Softmax()
+        self.output_activation = ReLU()
     
     def forward(self, x):
         x = self.conv1(x)
@@ -47,9 +47,9 @@ class DNN(Module):
         x = flatten(x, dim)
         x = self.fc1(x)
         x = self.fc2(x)
-        output = self.output_activation(x)
+        #output = self.output_activation(x)
 
-        return output
+        return x
 
 
 class DQNCarRacngAgent:
@@ -65,9 +65,10 @@ class DQNCarRacngAgent:
         self.memory = deque(maxlen=5000)
 
         # Qlearning parameters
+        self.q_learning_rate = 0.01
         self.gamma = 0.95
         self.epsilon = epsilon
-        self.epsilon_min = 0.1
+        self.epsilon_min = 0.01
         self.epsilon_decay = 0.9999
         self.learning_rate = 0.00025
 
@@ -105,14 +106,16 @@ class DQNCarRacngAgent:
         train_state = []
         train_target = []
         for state, action_index, reward, next_state, done in minibatch:
-            target = self.policy_model(torch.from_numpy(state))
+            target = np.zeros(len(self.action_space))
+            # self.policy_model(torch.from_numpy(state))
+            # Q(s,a) <- (1 - alpha) Q(s, a) + alpha * (r + gamma * max(Q(s_1, a)) )
             if done:
-                target[action_index] = reward
+                target[action_index] = (1 - self.q_learning_rate) * target[action_index] + self.q_learning_rate * (reward)
             else:
                 t = self.target_model(torch.from_numpy(next_state))
-                target[action_index] = reward + self.gamma * torch.amax(t)
+                target[action_index] += (1 - self.q_learning_rate) * target[action_index] + self.q_learning_rate * (reward + self.gamma * torch.amax(t))
             train_state.append(state)
-            train_target.append(target.detach().numpy())
+            train_target.append(target)
 
         self.train(train_state, train_target)
     
@@ -128,13 +131,21 @@ class DQNCarRacngAgent:
             self.epsilon *= self.epsilon_decay
     
     def train_on_dataset(self, train_state, train_target):
+        return self.train(train_state, train_target)
+        avg_loss = 0
+        # for i in range(len(train_state)):
+        #     x = train_state[i]
+        #     y = train_target[i]
         outputs = self.policy_model(torch.tensor(np.array(train_state)))
         loss = self.loss_function(outputs, torch.tensor(train_target))
 
+        self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
+
+        avg_loss += loss.item()
         
-        return loss.item()
+        return avg_loss
 
     def save_weights(self, file_path):
         torch.save(self.policy_model.state_dict(), file_path)

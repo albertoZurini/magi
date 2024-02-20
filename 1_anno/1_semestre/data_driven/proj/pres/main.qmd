@@ -1,0 +1,18 @@
+---
+title: "Car Racing"
+author: "Alberto Zurini"
+format: revealjs
+---
+
+## Getting up
+
+- Turn off alarm
+- Get out of bed
+
+## PID
+
+<video autoplay loop width="600" height="600">
+     <source src="assets/video/pid.mp4" type="video/mp4">
+</video>
+
+![pid](assets/img/pid_performance.png)

@@ -5,12 +5,13 @@ from common import process_state_image, generate_state_frame_stack_from_queue
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+import cv2
 
 import model
 
 RENDER                        = False
 STARTING_EPISODE              = 1
-ENDING_EPISODE                = 1000
+ENDING_EPISODE                = 100
 SKIP_FRAMES                   = 3
 TRAINING_BATCH_SIZE           = 64
 SAVE_TRAINING_FREQUENCY       = 25
@@ -19,10 +20,10 @@ UPDATE_TARGET_MODEL_FREQUENCY = 5
 if not os.path.exists("save"):
     os.mkdir("save")
 
-render_mode = "human" if RENDER else "rgb_array"
-env = gym.make('CarRacing-v2', render_mode=render_mode)
+#render_mode = "human" if RENDER else "rgb_array"
+env = gym.make('CarRacing-v2', render_mode="rgb_array")
 
-agent = model.DQNCarRacngAgent(epsilon=0.5)
+agent = model.DQNCarRacngAgent(epsilon=0.1)
 agent.set_training()
 agent.load_weights("weights.h5")
 
@@ -30,7 +31,9 @@ if STARTING_EPISODE > 1:
     model_path = f"save/trial_{STARTING_EPISODE-1}.h5"
     agent.load_weights(model_path)
 
-rewards = []
+# rewards = []
+with open("test.npy", "rb") as f:
+    rewards = np.load(f).tolist()
 
 for e in tqdm(range(STARTING_EPISODE, ENDING_EPISODE+1)):
     init_state, _ = env.reset()
@@ -42,9 +45,6 @@ for e in tqdm(range(STARTING_EPISODE, ENDING_EPISODE+1)):
     time_frame_counter = 1
     
     for x in [1,0]*2000:
-        if RENDER:
-            env.render()
-
         current_state_frame_stack = generate_state_frame_stack_from_queue(state_frame_stack_queue)
         action = (agent.act(current_state_frame_stack)[0], 
                   x,# acceleration
@@ -62,6 +62,11 @@ for e in tqdm(range(STARTING_EPISODE, ENDING_EPISODE+1)):
                 break
 
         total_reward += reward
+
+        if RENDER:
+            cv2.imshow("car", next_state)
+            if cv2.waitKey(1) & 0xFF == ord('x'):
+                break
 
         next_state = process_state_image(next_state)
         state_frame_stack_queue.append(next_state)

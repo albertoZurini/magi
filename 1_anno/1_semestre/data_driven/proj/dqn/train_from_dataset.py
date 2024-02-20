@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import pickle 
 import torch
 from sklearn.model_selection import train_test_split
+import random
+import matplotlib.pyplot as plt
 
 import model
 
@@ -16,9 +18,10 @@ agent.set_training()
 agent.load_weights("weights.h5")
 agent.optimizer.zero_grad()
 
-file_names = ['dataset/dataset_batch047.pkl']
+file_names = []
 for i in range(29):
     file_names.append(f"dataset/dataset_batch{i}.pkl")
+file_names.append('dataset/dataset_batch047.pkl')
 
 for file_name in tqdm(file_names):
     with open(file_name, 'rb') as file: 
@@ -27,18 +30,33 @@ for file_name in tqdm(file_names):
     train_state = []
     train_target = []
 
-    for el in dataset["states"]:
-        train_state.append([process_state_image(im) for im in el])
+    values, counts = np.unique(np.array(dataset["actions"])[:, 0], return_counts=True)
+    min_count = min(counts)
+    p0 = int(10 * min_count / counts[0])
+    p1 = int(10 * min_count / counts[1])
+    p2 = int(10 * min_count / counts[2])
 
-    for el in dataset["actions"]:
+    for i in range(len(dataset["actions"])):
+        el = dataset["actions"][i]
         steer = el[0]
-        if el[0] == -1:
-            state = [1, 0, 0]
-        elif el[0] == 0:
-            state = [0, 1, 0]
+        if steer == -1:
+            action = [1, 0, 0]
+        elif steer == 0:
+            action = [0, 1, 0]
         else:
-            state = [0, 0, 1]
-        train_target.append(np.array(state).astype(np.float32))
+            action = [0, 0, 1]
+
+        if action[0] == 1:
+            if random.randint(0,9) > p0:
+                continue        
+        if action[1] == 1:
+            if random.randint(0,9) > p1:
+                continue
+        if action[2] == 1:
+            if random.randint(0,9) > p2:
+                continue  
+        train_target.append(np.array(action).astype(np.float32))
+        train_state.append([process_state_image(im) for im in dataset["states"][i]])
 
     agent.optimizer = torch.optim.Adam(agent.policy_model.parameters(), 
                                     lr=agent.learning_rate, eps=1e-7)
@@ -47,12 +65,12 @@ for file_name in tqdm(file_names):
                                                         test_size=0.33)
 
     prev_loss = 0
-    for epoch in tqdm(range(10)):
+    for epoch in tqdm(range(20)):
         train_loss = agent.train_on_dataset(X_train, y_train)
-        y_pred = agent.policy_model(torch.tensor(np.array(X_test)))
-        loss = agent.loss_function(y_pred, torch.tensor(y_test))
-        print(loss)
+        #y_pred = agent.policy_model(torch.tensor(np.array(X_test)))
+        #loss = agent.loss_function(y_pred, torch.tensor(y_test))
+        print(train_loss)
 
-        prev_loss = loss
+        #prev_loss = loss
 
     agent.save_weights("weights.h5")
