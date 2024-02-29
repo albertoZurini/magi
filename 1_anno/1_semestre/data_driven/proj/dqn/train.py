@@ -11,7 +11,7 @@ import model
 
 RENDER                        = False
 STARTING_EPISODE              = 1
-ENDING_EPISODE                = 100
+ENDING_EPISODE                = 1000
 SKIP_FRAMES                   = 3
 TRAINING_BATCH_SIZE           = 64
 SAVE_TRAINING_FREQUENCY       = 25
@@ -23,7 +23,7 @@ if not os.path.exists("save"):
 #render_mode = "human" if RENDER else "rgb_array"
 env = gym.make('CarRacing-v2', render_mode="rgb_array")
 
-agent = model.DQNCarRacngAgent(epsilon=0.1)
+agent = model.DQNCarRacngAgent(epsilon=0.5)
 agent.set_training()
 agent.load_weights("weights.h5")
 
@@ -31,9 +31,9 @@ if STARTING_EPISODE > 1:
     model_path = f"save/trial_{STARTING_EPISODE-1}.h5"
     agent.load_weights(model_path)
 
-# rewards = []
-with open("test.npy", "rb") as f:
-    rewards = np.load(f).tolist()
+rewards = []
+# with open("test.npy", "rb") as f:
+#     rewards = np.load(f).tolist()
 
 for e in tqdm(range(STARTING_EPISODE, ENDING_EPISODE+1)):
     init_state, _ = env.reset()

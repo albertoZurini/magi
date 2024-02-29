@@ -77,8 +77,8 @@ class DQNCarRacngAgent:
         self.target_model = DNN(self.frame_stack_num, self.action_space)
 
         self.loss_function = torch.nn.CrossEntropyLoss()
-        self.optimizer = torch.optim.RMSprop(self.policy_model.parameters(), lr=self.learning_rate)
-        # torch.optim.Adam(self.policy_model.parameters(), lr=self.learning_rate, eps=1e-7)
+        self.optimizer = torch.optim.Adam(self.policy_model.parameters(), lr=self.learning_rate, eps=1e-7)
+        # torch.optim.RMSprop(self.policy_model.parameters(), lr=self.learning_rate) 
 
     def set_training(self):
         self.policy_model.train()
@@ -106,16 +106,14 @@ class DQNCarRacngAgent:
         train_state = []
         train_target = []
         for state, action_index, reward, next_state, done in minibatch:
-            target = np.zeros(len(self.action_space))
-            # self.policy_model(torch.from_numpy(state))
-            # Q(s,a) <- (1 - alpha) Q(s, a) + alpha * (r + gamma * max(Q(s_1, a)) )
+            target = self.policy_model(torch.from_numpy(next_state))
             if done:
-                target[action_index] = (1 - self.q_learning_rate) * target[action_index] + self.q_learning_rate * (reward)
+                target[action_index] = reward
             else:
-                t = self.target_model(torch.from_numpy(next_state))
-                target[action_index] += (1 - self.q_learning_rate) * target[action_index] + self.q_learning_rate * (reward + self.gamma * torch.amax(t))
+                future_reward = self.target_model(torch.from_numpy(next_state)) # expected future reward
+                target[action_index] = reward + self.gamma * torch.amax(future_reward) # reward + discount * expected_future
             train_state.append(state)
-            train_target.append(target)
+            train_target.append(target.detach().numpy())
 
         self.train(train_state, train_target)
     
@@ -129,23 +127,8 @@ class DQNCarRacngAgent:
 
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
-    
-    def train_on_dataset(self, train_state, train_target):
-        return self.train(train_state, train_target)
-        avg_loss = 0
-        # for i in range(len(train_state)):
-        #     x = train_state[i]
-        #     y = train_target[i]
-        outputs = self.policy_model(torch.tensor(np.array(train_state)))
-        loss = self.loss_function(outputs, torch.tensor(train_target))
 
-        self.optimizer.zero_grad()
-        loss.backward()
-        self.optimizer.step()
-
-        avg_loss += loss.item()
-        
-        return avg_loss
+        return loss.item()
 
     def save_weights(self, file_path):
         torch.save(self.policy_model.state_dict(), file_path)

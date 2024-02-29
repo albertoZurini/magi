@@ -172,14 +172,14 @@ def pid(error,previous_error,Kp=0.02):
 from collections import deque
 
 frames_collection = []
-dataset = {"states": [],
-           "actions": []}
+
 
 from tqdm import tqdm
 
-for k in tqdm(range(30)):
-    dataset = {"states": [],
-           "actions": []}
+
+# I have to store state, action, reward, next_state
+for k in tqdm(range(4,10)):
+    dataset = []
     for i in tqdm(range(30)):
         env.reset()
         for _ in range(100):
@@ -209,8 +209,8 @@ for k in tqdm(range(30)):
                 
             if true_speed > CORNERING_SPEED + 10 and (abs(steering) > 1 or abs(error) > 1):
                 speed_target = CORNERING_SPEED
-                observation = cv2.putText(observation, "s", org_steering, font,  
-                        fontScale, color, thickness, cv2.LINE_AA)
+                #observation = cv2.putText(observation, "s", org_steering, font,  
+                #        fontScale, color, thickness, cv2.LINE_AA)
                 braking_force_reference = 0.1 + abs(true_speed - CORNERING_SPEED)/max(true_speed, CORNERING_SPEED)
                 braking_force = max(braking_force, braking_force_reference)
                 Kp = 0.05
@@ -226,6 +226,8 @@ for k in tqdm(range(30)):
             else:
                 bf = 0
             # END PID CONTROLLER FOR SPEED
+                
+            # TODO: save the cumulative reward an not the immediate
             
             if abs(steering) < 0.2:
                 steering = 0
@@ -239,9 +241,8 @@ for k in tqdm(range(30)):
             if i % 3 == 0:
                 frames_collection.append(observation)
             
-            if len(frames_collection) == 3:
-                dataset["states"].append(frames_collection.copy())
-                dataset["actions"].append(action)
+            if len(frames_collection) == 4:
+                dataset.append([frames_collection[:3], action, reward, frames_collection[1:]])
                 frames_collection.clear()
             
             # target_speeds.append(speed_target)
@@ -273,7 +274,7 @@ for k in tqdm(range(30)):
 
     import pickle 
 
-    with open(f"dataset_batch{k}.pkl", 'wb') as file: 
+    with open(f"./dataset/dataset_batch{k}.pkl", 'wb') as file: 
         pickle.dump(dataset, file) 
 
 env.close()
