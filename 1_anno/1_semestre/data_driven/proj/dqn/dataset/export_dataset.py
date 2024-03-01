@@ -178,18 +178,20 @@ from tqdm import tqdm
 
 
 # I have to store state, action, reward, next_state
-for k in tqdm(range(4,10)):
+for k in tqdm(range(1)):
     dataset = []
-    for i in tqdm(range(30)):
+    cumulative_reward = 0
+    for i in tqdm(range(1)):
         env.reset()
         for _ in range(100):
             observation, reward, done, _, info = env.step((0,0,0))
 
         negative_reward_counter = 0
+        total_reward = 0
         for i in range(3000):
-            #cv2.imshow("car", observation)
-            #if cv2.waitKey(1) & 0xFF == ord('x'):
-            #    break
+            cv2.imshow("car", observation)
+            if cv2.waitKey(1) & 0xFF == ord('x'):
+                break
 
             error, braking_force, position = IP2.find_error_braking_position(observation, previous_error)
             true_speed = np.sqrt(
@@ -242,7 +244,7 @@ for k in tqdm(range(4,10)):
                 frames_collection.append(observation)
             
             if len(frames_collection) == 4:
-                dataset.append([frames_collection[:3], action, reward, frames_collection[1:]])
+                dataset.append([frames_collection[:3], action, cumulative_reward, frames_collection[1:], done])
                 frames_collection.clear()
             
             # target_speeds.append(speed_target)
@@ -253,23 +255,23 @@ for k in tqdm(range(4,10)):
             # accelerations.append(acceleration)
             # braking_forces.append(bf)
                 
-
             observation, reward, done, _, info = env.step(action)
 
             negative_reward_counter = negative_reward_counter + 1 if reward < 0 else 0
             if negative_reward_counter > 100:
                 done = True
+            cumulative_reward += reward
 
             previous_error = error
-            rewardsum = rewardsum +reward
             
             # observation = cv2.putText(observation, str(int(bf*10)/10), org, font,  
             #            fontScale, color, thickness, cv2.LINE_AA)
             # observation = cv2.putText(observation, str(int(steering*10)/10), org_steering, font,  
             #                fontScale, color, thickness, cv2.LINE_AA)
-            frames.append(observation)
+            # frames.append(observation)
 
             if done :
+                dataset[-1][-1] = True
                 break
 
     import pickle 
