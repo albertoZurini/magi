@@ -76,7 +76,8 @@ class DQNCarRacngAgent:
         self.policy_model = DNN(self.frame_stack_num, self.action_space)
         self.target_model = DNN(self.frame_stack_num, self.action_space)
 
-        self.loss_function = torch.nn.CrossEntropyLoss()
+        self.loss_function = torch.nn.MSELoss()
+        # CrossEntropyLoss()
         self.optimizer = torch.optim.Adam(self.policy_model.parameters(), lr=self.learning_rate, eps=1e-7)
         # torch.optim.RMSprop(self.policy_model.parameters(), lr=self.learning_rate) 
 
