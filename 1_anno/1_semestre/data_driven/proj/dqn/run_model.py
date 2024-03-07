@@ -6,7 +6,7 @@ from common import process_state_image, generate_state_frame_stack_from_queue, e
 import model
 
 EPISODES_NUMBER = 10
-# MODEL_PATH = "./save/trial_100.h5"
+#MODEL_PATH = "./save/trial_1000.h5"
 MODEL_PATH = "./weights.h5"
 
 env = gym.make('CarRacing-v2', render_mode="human")

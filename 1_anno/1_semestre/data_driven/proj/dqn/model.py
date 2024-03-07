@@ -65,10 +65,9 @@ class DQNCarRacngAgent:
         self.memory = deque(maxlen=5000)
 
         # Qlearning parameters
-        self.q_learning_rate = 0.01
         self.gamma = 0.95
         self.epsilon = epsilon
-        self.epsilon_min = 0.01
+        self.epsilon_min = 0.000001
         self.epsilon_decay = 0.9999
         self.learning_rate = 0.00025
 
