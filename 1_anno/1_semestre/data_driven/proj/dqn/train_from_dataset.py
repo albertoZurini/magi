@@ -113,8 +113,9 @@ for file_name in tqdm(file_names):
                 train_loss = agent.train(X_train, y_train)
                 y_pred = agent.policy_model(torch.tensor(np.array(X_test)))
                 loss = agent.loss_function(y_pred, torch.tensor(y_test))
-                print(train_loss)
-                print(loss)
+                if epoch % 10 == 0:
+                    print(train_loss)
+                    print(loss)
 
                 #prev_loss = loss
 
@@ -125,4 +126,4 @@ for file_name in tqdm(file_names):
             train_state = []
             train_target = []
 
-    agent.save_weights("weights.h5")
+    agent.save_weights("weights2.h5")

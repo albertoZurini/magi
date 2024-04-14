@@ -6,7 +6,7 @@ from torch.nn import Module
 from torch.nn import Conv2d
 from torch.nn import Linear
 from torch.nn import MaxPool2d
-from torch.nn import ReLU
+from torch.nn import ReLU, ELU
 from torch.nn import Softmax
 from torch import flatten
 import torch
@@ -33,6 +33,7 @@ class DNN(Module):
         self.in_features = 32 * 9 * 9        
         self.fc1 = Linear(in_features=self.in_features,
                           out_features=256)
+        self.fc1_activation = ELU()
         self.fc2 = Linear(in_features=256,
                           out_features=len(action_space)
                           )
@@ -46,8 +47,9 @@ class DNN(Module):
         dim = 0 if len(x.shape) < 4 else 1
         x = flatten(x, dim)
         x = self.fc1(x)
+        x = self.fc1_activation(x)
         x = self.fc2(x)
-        #output = self.output_activation(x)
+        #x = self.output_activation(x)
 
         return x
 

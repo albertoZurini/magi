@@ -25,7 +25,7 @@ env = gym.make('CarRacing-v2', render_mode="rgb_array")
 
 agent = model.DQNCarRacngAgent(epsilon=0.001)
 agent.set_training()
-agent.load_weights("weights.h5")
+agent.load_weights("weights2.h5")
 
 if STARTING_EPISODE > 1:
     model_path = f"save/trial_{STARTING_EPISODE-1}.h5"
