@@ -1,0 +1,12 @@
+function dxdt = cart_pend(x, ,g, mc, mp, l, mu_p)
+
+  F = 0;
+
+  dxdt = zeros(4,1);
+
+  dxdt(1) = x(2);
+  dxdt(2) = (g*sin(x(3))+ cos(x(3))*((-F-mp*l*x4^2*sin(x(3)))/(mc+mp))-((mu_p*x(4))/(mp*l)))/(l*(0.75-((mp*cos(x(3))^2)/(mc+mp))));
+  dxdt(3) = x(4);
+  dxdt(4) = (F+mp*l*(x(4)^2*sin(x(3))-theta_2*cos(x(3))))/(mc+mp);
+
+end

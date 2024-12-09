@@ -1,0 +1,9 @@
+ez_setup
+opencv-python
+matplotlib
+numpy
+debugpy
+gym[box2d]
+Box2D 
+gym
+moviepy

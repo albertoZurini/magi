@@ -1,0 +1,60 @@
+Computer Abstraction and Technology
+-----------------------------------
+- Da cosa dipendono le prestazioni di un computer.
+- Quali sono le "8 grandi idee" alle fondamenta del progetto dei moderni computer?
+  Definire brevemente ciascuna di queste idee o fornirne un esempio.
+- Quali sono i 5 componenti di un computer? Decriverli brevemente.
+- Qual è la differenza tra memoria primaria e secondaria? Fornire degli esempi delle due memorie.
+- Come dipendono i costi di un chip dalla sua area?
+- Definire il "tempo di esecuzione" (response time o wall clock time) e "tempo di esecuzione della CPU" (CPU execution  time). In cosa differiscono?
+- Si parli della equazione delle prestazioni della CPU. 
+  Come vengono influenzati i vari termini dell'equazione dall'algoritmo implementato, dal linguaggio di programmazione, dall'architettura del set di istruzioni?
+- Cosa si intende per "power wall" e come ha influenzato l'industria dei calcolatori?
+- Si parli della legge di Amdahl.
+
+
+Instructions Language of the computer
+-------------------------------------
+- In che modo il LEGv8 supporta le chiamate a procedura? 
+- Quali operazioni vengono fatte nelle chiamate a procedure.
+- Come in LEGv8 possiamo implementare una operazione di "lock"
+- Si parli del processo di traduzione di un programma C in un eseguibile (Compiler, Assembler, Linker, Loader)
+- Cosa sono e come vengono gestiste le Dynamic Link Libraries.
+- Discutere le diverse tipologie di formati dati del LEGv8 e il loro uso.
+- Come devono essere interpretati, ovvero a cosa sono riferiti, gli indirizzi dei Branch o dei Branch condizionali?
+
+
+Arithmetic for Computers
+-------------------------------------
+- Si descriva il Floating Point Standard IEEE Std 754 a singola precisione/ a doppia precisione. 
+- Qual è il più grande valore rappresentabile in singola precisione? E in Doppia?
+- Si parli del subword parallelism ovvero SIMD
+- Come viene realizzato il subword parallelism nell'ARMv8
+
+
+Il Processore
+-------------------------------------
+- Si parli dell'organizzazione a singolo ciclo
+- Si parli dell'unità di controllo
+- Si descriva l'unità di controllo cablata
+- Si descriva l'unità di controllo microprogrammata
+- Cosa determina la durata del ciclo di clock in una organizzazione a singolo ciclo? E in una organizzazione a pipeline?
+- Si parli dell'organizzazione a pipeline
+- Si descrivano gli Hazard
+- Come possono essere risolti gli Hazard dei dati
+	Cosa sono i Load-Use data hazard
+- Come possono essere risolti gli Hazard di controllo
+        Qual è la differenza tra predizione statica e dinamica dei branch
+- Cos'è un diagramma a pipeline multiciclo.
+- Come si può ottenere lo stallo della pipeline durante la decodifica di una istruzione  
+- Si parli della predizione dinamica dei branch. Come può essere realizzata?
+- Cosa sono le eccezioni e come vengono gestite.
+	Quali sono le tipiche eccezioni e interrupt
+	Come vengono gestite le eccezioni nel LEGv8
+	Come vengono gestile le eccezioni negli interrupt vettorizzati.
+- Si parli della speculazione	
+- Si parli dei processori multiple-issue statici
+- Si parli dei processori multiple-issue dinamici
+- Si parli del loop-unrolling e della rinominazione dei registri
+- Dato che i compilatori possono schedulare il codice evitando le dipendenza tra i dati, perché si utilizza il dynamic pipeline scheduling?
+

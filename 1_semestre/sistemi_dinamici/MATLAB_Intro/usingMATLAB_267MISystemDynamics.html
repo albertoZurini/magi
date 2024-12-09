@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2022b"><title>Hands On: Using MATLAB in the 267MI "System Dynamics" Course</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(192, 76, 11); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S2 { margin-bottom: 20px; padding-bottom: 4px;  }
+.S3 { margin: 0px; padding: 10px 0px 10px 5px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 700; text-align: start;  }
+.S4 { margin: -1px 0px 0px; padding: 10px 0px 10px 7px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: start;  }
+.S5 { margin: 20px 10px 5px 4px; padding: 0px; line-height: 20px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 20px; font-weight: 700; text-align: left;  }
+.S6 { margin: 10px 0px 20px; padding-left: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 14px;  }
+.S7 { margin-left: 56px; line-height: 21px; min-height: 0px; text-align: left; white-space: pre-wrap;  }</style></head><body><div class = rtcContent><h1  class = 'S0' id = 'T_C4C43966' ><span>Hands On: Using MATLAB in the 267MI "System Dynamics" Course</span></h1><div  class = 'S1'><span></span></div><div  class = 'S2'><div  class = 'S3'><span style=' font-weight: bold;'>Table of Contents</span></div><div  class = 'S4'><a href = "#H_EBD949AE"><span>What is MATLAB?
+</span></a><a href = "#H_0505F035"><span>What is MATLAB for in the “276MI System Dynamics” course?
+</span></a><a href = "#H_C4D256EA"><span>What this Document is not.
+</span></a><a href = "#H_AE0D9644"><span>Programming in MATLAB
+</span></a><a href = "#H_75693B95"><span>The Live Scripts Collection
+</span></a><a href = "#H_B9CB204F"><span>Instructions</span></a></div></div><div  class = 'S1'><span></span></div><h2  class = 'S5' id = 'H_EBD949AE' ><span>What is MATLAB?</span></h2><div  class = 'S1'><span></span></div><div  class = 'S1'><span>MATLAB is a high-performance language for technical computing, integrating computation, visualisation, and programming in an easy-to-use environment where problems and solutions are expressed in familiar mathematical notation [excerpt from the MATLAB documentation]. </span></div><div  class = 'S1'><span>Typical uses include </span></div><ul  class = 'S6'><li  class = 'S7'><span>Mathematics and computation;</span></li><li  class = 'S7'><span>Algorithm development;</span></li><li  class = 'S7'><span>Modelling, simulation, and prototyping;</span></li><li  class = 'S7'><span>Data analysis, and visualisation;</span></li></ul><div  class = 'S1'><span>Matlab is an </span><span style=' text-decoration: underline;'>interactive system</span><span> whose </span><span style=' text-decoration: underline;'>basic data element</span><span> is an </span><span style=' font-weight: bold;'>array</span><span> that does not require dimensioning. This allows you to solve many technical computing </span><span style=' font-weight: bold;'>problems</span><span>, especially those </span><span style=' font-weight: bold;'>with matrix and vector formulations</span><span>, in a fraction of the time it would take to write a program in a classic scalar non-interactive language such as C or Fortran. </span></div><div  class = 'S1'><span></span></div><div  class = 'S1'><span>As a student enrolled in the University of Trieste, you can download the MATLAB software, install it on your PC, and use it until the end of the student career. For more details regarding the available products and how to download and activate the software, visit the </span><a href = "https://it.mathworks.com/academia/tah-portal/universita-degli-studi-di-trieste-40730846.html"><span>dedicated MathWorks web portal</span></a><span>.</span></div><div  class = 'S1'><span></span></div><h2  class = 'S5' id = 'H_0505F035' ><span>What is MATLAB for in the “276MI System Dynamics” course?</span></h2><div  class = 'S1'><span></span></div><div  class = 'S1'><span>During the course lectures, we will show how to make profitable use of MATLAB and some of its toolboxes to solve problems of performance analysis of dynamic systems, parametric estimation, identification of models from data, and prediction of the evolution of dynamic systems. At the end of the course, you will be able (using MATLAB):</span></div><ul  class = 'S6'><li  class = 'S7'><span>to proficiently analyse the performance of dynamic systems in the discrete-time domain both in a deterministic and in a stochastic setting;</span></li><li  class = 'S7'><span>to implement estimation, prediction, and identification algorithms using experimental data;</span></li><li  class = 'S7'><span>to design and implement state estimation algorithms in a deterministic and stochastic framework.</span></li></ul><div  class = 'S1'><span></span></div><h2  class = 'S5' id = 'H_C4D256EA' ><span>What this Document is not.</span></h2><div  class = 'S1'><span>This collection of live scripts is </span><span style=' font-weight: bold;'>NOT</span><span> a complete documentation on MATLAB/Simulink, nor a complete guide on any of the topics analyzed. It is a quick overview of the main topics needed to use MATLAB and Simulink profitably in solving the problems addressed and solved in this course.</span></div><h2  class = 'S5' id = 'H_904D8273' ><span></span></h2><h2  class = 'S5' id = 'H_AE0D9644' ><span>Programming in MATLAB</span></h2><div  class = 'S1'><span></span></div><div  class = 'S1'><span>Some tips and guidelines for comprehensible, easy-to-maintain and efficient code:</span></div><ul  class = 'S6'><li  class = 'S7'><a href = "https://it.mathworks.com/matlabcentral/fileexchange/46056-matlab-style-guidelines-2-0"><span>MATLAB Style Guidelines 2.0</span></a><span> provide guidance on variable names, functions and programming style;</span></li><li  class = 'S7'><a href = "https://it.mathworks.com/matlabcentral/fileexchange/22943-guidelines-for-writing-clean-and-fast-code-in-matlab"><span>Guidelines for writing clean and fast code in MATLAB</span></a><span> advise on how to obtain comprehensible and efficient code;</span></li><li  class = 'S7'><a href = "https://www.researchgate.net/publication/316479241_Best_practices_for_scientific_computing_and_MATLAB_programming_style_guidelines"><span>Programming style guidelines</span></a><span>: good programming practices, brought into the MATLAB environment.</span></li></ul><h2  class = 'S5' id = 'H_35C98596' ><span></span></h2><h2  class = 'S5' id = 'H_75693B95' ><span>The Live Scripts Collection</span></h2><ul  class = 'S6' id = 'H_FF156EF9' ><li  class = 'S7'><span>Part 1 - </span><a href = "./Intro_MATLAB4SD_p1.html"><span>Starting MATLAB</span></a></li><li  class = 'S7'><span>Part 2 - </span><a href = "./Intro_MATLAB4SD_p2.html"><span>Numbers, Arithmetic Operations, Formats and Variables</span></a></li><li  class = 'S7'><span>Part 3 - </span><a href = "./Intro_MATLAB4SD_p3.html"><span>Vectors &amp; Matrices</span></a><span> </span></li><li  class = 'S7'><span>Part 4 - </span><a href = "./Intro_MATLAB4SD_p4.html"><span>Functions</span></a></li><li  class = 'S7'><span>Part 5 - </span><a href = "./Intro_MATLAB4SD_p5.html"><span>LTI Systems</span></a></li><li  class = 'S7'><span>...</span></li></ul><div  class = 'S1'><span></span></div><div  class = 'S1' id = 'H_55CDEC4A' ><span></span></div><h2  class = 'S5' id = 'H_B9CB204F' ><span>Instructions</span></h2><div  class = 'S1'><span></span></div><div  class = 'S1'><span>Work your way through the pages of this set of live scripts, using the links to navigate through the various addressed topics. It would be best if you did them in order initially, but you can return to any of them when you need to refresh your memory. You can also export this live script (and any other live script of this collection) as a document in PDF or HTML format. Please pay attention: exporting the live script does not preserve the capability of inserting a MATLAB command or a piece of code directly in the live script, obtaining the result directly in the script itself.</span></div><div  class = 'S1'><span style=' font-weight: bold;'>Hint:</span><span> Have these live scripts open directly in MATLAB so you can quickly try all the examples as you work through the scripts. </span></div><div  class = 'S1'><span></span></div><div  class = 'S1'><span>				</span></div><div  class = 'S1'><span>			</span></div><div  class = 'S1'><span>		</span></div><div  class = 'S1'><span>	 </span></div><div  class = 'S1'></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% Hands On: Using MATLAB in the 267MI "System Dynamics" Course
+% 
+%% 
+% 
+%% What is MATLAB?
+% 
+% 
+% MATLAB is a high-performance language for technical computing, integrating 
+% computation, visualisation, and programming in an easy-to-use environment where 
+% problems and solutions are expressed in familiar mathematical notation [excerpt 
+% from the MATLAB documentation]. 
+% 
+% Typical uses include 
+%% 
+% * Mathematics and computation;
+% * Algorithm development;
+% * Modelling, simulation, and prototyping;
+% * Data analysis, and visualisation;
+%% 
+% Matlab is an interactive system whose basic data element is an *array* that 
+% does not require dimensioning. This allows you to solve many technical computing 
+% *problems*, especially those *with matrix and vector formulations*, in a fraction 
+% of the time it would take to write a program in a classic scalar non-interactive 
+% language such as C or Fortran. 
+% 
+% 
+% 
+% As a student enrolled in the University of Trieste, you can download the MATLAB 
+% software, install it on your PC, and use it until the end of the student career. 
+% For more details regarding the available products and how to download and activate 
+% the software, visit the <https://it.mathworks.com/academia/tah-portal/universita-degli-studi-di-trieste-40730846.html 
+% dedicated MathWorks web portal>.
+% 
+% 
+%% What is MATLAB for in the “276MI System Dynamics” course?
+% 
+% 
+% During the course lectures, we will show how to make profitable use of MATLAB 
+% and some of its toolboxes to solve problems of performance analysis of dynamic 
+% systems, parametric estimation, identification of models from data, and prediction 
+% of the evolution of dynamic systems. At the end of the course, you will be able 
+% (using MATLAB):
+%% 
+% * to proficiently analyse the performance of dynamic systems in the discrete-time 
+% domain both in a deterministic and in a stochastic setting;
+% * to implement estimation, prediction, and identification algorithms using 
+% experimental data;
+% * to design and implement state estimation algorithms in a deterministic and 
+% stochastic framework.
+%% 
+% 
+%% What this Document is not.
+% This collection of live scripts is *NOT* a complete documentation on MATLAB/Simulink, 
+% nor a complete guide on any of the topics analyzed. It is a quick overview of 
+% the main topics needed to use MATLAB and Simulink profitably in solving the 
+% problems addressed and solved in this course.
+%% 
+%% Programming in MATLAB
+% 
+% 
+% Some tips and guidelines for comprehensible, easy-to-maintain and efficient 
+% code:
+%% 
+% * <https://it.mathworks.com/matlabcentral/fileexchange/46056-matlab-style-guidelines-2-0 
+% MATLAB Style Guidelines 2.0> provide guidance on variable names, functions and 
+% programming style;
+% * <https://it.mathworks.com/matlabcentral/fileexchange/22943-guidelines-for-writing-clean-and-fast-code-in-matlab 
+% Guidelines for writing clean and fast code in MATLAB> advise on how to obtain 
+% comprehensible and efficient code;
+% * <https://www.researchgate.net/publication/316479241_Best_practices_for_scientific_computing_and_MATLAB_programming_style_guidelines 
+% Programming style guidelines>: good programming practices, brought into the 
+% MATLAB environment.
+%% 
+%% The Live Scripts Collection
+%% 
+% * Part 1 - <./Intro_MATLAB4SD_p1.mlx Starting MATLAB>
+% * Part 2 - <./Intro_MATLAB4SD_p2.mlx Numbers, Arithmetic Operations, Formats 
+% and Variables>
+% * Part 3 - <./Intro_MATLAB4SD_p3.mlx Vectors & Matrices> 
+% * Part 4 - <./Intro_MATLAB4SD_p4.mlx Functions>
+% * Part 5 - <./Intro_MATLAB4SD_p5.mlx LTI Systems>
+% * ...
+%% 
+% 
+% 
+% 
+%% Instructions
+% 
+% 
+% Work your way through the pages of this set of live scripts, using the links 
+% to navigate through the various addressed topics. It would be best if you did 
+% them in order initially, but you can return to any of them when you need to 
+% refresh your memory. You can also export this live script (and any other live 
+% script of this collection) as a document in PDF or HTML format. Please pay attention: 
+% exporting the live script does not preserve the capability of inserting a MATLAB 
+% command or a piece of code directly in the live script, obtaining the result 
+% directly in the script itself.
+% 
+% *Hint:* Have these live scripts open directly in MATLAB so you can quickly 
+% try all the examples as you work through the scripts. 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+%
+##### SOURCE END #####
+-->
+</div></body></html>
